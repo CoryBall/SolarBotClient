@@ -5,22 +5,22 @@ import type {AppProps} from "next/app";
 import Head from "next/head";
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
-import {StateProvider} from "../store";
+import {Provider as NextAuthProvider} from "next-auth/client";
 
-const MyApp = ({Component, pageProps}: AppProps) => (
-    <StateProvider>
+const MyApp : React.FC<AppProps> = ({Component, pageProps}: AppProps) => (
+    <NextAuthProvider session={pageProps.session}>
         <div className="bg-light vh-100 vw-100">
             <Head>
                 <title>Solar Bot</title>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/src/assets/favicon/favicon.ico"/>
             </Head>
             <div className="h-100">
                 <Header/>
-                <Component/>
+                <Component {...pageProps} />
                 <Footer />
             </div>
         </div>
-    </StateProvider>
+    </NextAuthProvider>
 )
 
 export default MyApp;

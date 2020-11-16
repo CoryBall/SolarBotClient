@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
-import SolarBotLogo from "../solarbotlogo";
-import SolarBotIcon from "../solarboticon";
+import SolarBotLogo from "../icons/solarbotlogo";
+import SolarbotIcon from "../icons/solarbotIcon";
 
 
 interface FooterProps {
@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = ({}) => {
                             </h6>
                         </Col>
                         <Col xs={12} md={6} lg={4} className="text-center">
-                            <SolarBotIcon height={50}/>
+                            <SolarbotIcon height={50}/>
                         </Col>
                         <Col xs={12} md={6} lg={4} className="text-center my-auto">
                             <h6>

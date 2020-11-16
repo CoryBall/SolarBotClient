@@ -1,15 +1,19 @@
-import React, {useContext} from 'react';
-import {Nav, Navbar} from 'react-bootstrap';
-import SolarBotLogo from "../solarbotlogo";
-import {StateContext} from "../../store";
+import React from 'react';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import SolarBotLogo from "../icons/solarbotlogo";
+import DiscordLoginIcon from "../icons/discordLogin";
+import {signin, signout, useSession} from "next-auth/client";
 
 interface HeaderProps {
 
 }
 
+function discordLogin(){
+
+}
 
 const Header: React.FC<HeaderProps> = ({}) => {
-    const {user, isLoggedIn} = useContext(StateContext);
+    const [session, loading] = useSession();
 
     return (
         <>
@@ -19,13 +23,24 @@ const Header: React.FC<HeaderProps> = ({}) => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    {/*<Nav className=".d-block .d-md-none">*/}
-                    {/*    <Nav.Link href="/account">{user.username}</Nav.Link>*/}
-                    {/*</Nav>*/}
+                    {!session && (
+                        <Nav className="ml-auto">
+                            <button onClick={() => signin('discord')} className="border-0 bg-light">
+                                <DiscordLoginIcon height={60}/>
+                            </button>
+                        </Nav>
+                    )}
+                    {session && (
+                        <Nav className="align-middle ml-auto">
+                            <img src={session.user.image} alt="discord avatar" className="rounded-circle mx-auto" style={{height: 60, width: 60}}/>
+                            <NavDropdown id="collapsible-nav-dropdown" title={session.user.name} className="ml-3 m-auto text-center">
+                                <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => signout()}>Sign Out</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    )}
+
                 </Navbar.Collapse>
-                <Nav className=".d-none .d-lg-block">
-                    <Nav.Link href="/account">{user.username}</Nav.Link>
-                </Nav>
             </Navbar>
         </>
     )

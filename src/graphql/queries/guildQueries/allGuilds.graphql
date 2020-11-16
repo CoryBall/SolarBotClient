@@ -1,0 +1,8 @@
+query allGuilds{
+    guilds{
+        id
+        name
+        icon
+        owner
+    }
+}

@@ -6,19 +6,7 @@ export const AppReducer = (state: GlobalState, action: {type: string; payload: a
         case Actions.setAccessToken:
             return {
                 ...state,
-                oAuthAccessToken: action.payload,
+                accessToken: action.payload,
             };
-
-        case Actions.setDiscordUser:
-            return {
-                ...state,
-                user : action.payload,
-            };
-
-        case Actions.setIsLoggedIn:
-            return {
-                ...state,
-                isLoggedIn : action.payload,
-            }
     }
 }
