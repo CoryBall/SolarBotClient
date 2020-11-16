@@ -6,21 +6,26 @@ import Head from "next/head";
 import Header from "../components/layout/header";
 import Footer from "../components/layout/footer";
 import {Provider as NextAuthProvider} from "next-auth/client";
+import {ApolloProvider} from "@apollo/client";
+import {client} from "../graphql/apollo";
+
 
 const MyApp : React.FC<AppProps> = ({Component, pageProps}: AppProps) => (
-    <NextAuthProvider session={pageProps.session}>
-        <div className="bg-light vh-100 vw-100">
-            <Head>
-                <title>Solar Bot</title>
-                <link rel="icon" href="/src/assets/favicon/favicon.ico"/>
-            </Head>
-            <div className="h-100">
-                <Header/>
-                <Component {...pageProps} />
-                <Footer />
+    <ApolloProvider client={client}>
+        <NextAuthProvider session={pageProps.session}>
+            <div className="bg-light vh-100 vw-100">
+                <Head>
+                    <title>Solar Bot</title>
+                    <link rel="icon" href="/src/assets/favicon/favicon.ico"/>
+                </Head>
+                <div className="h-100">
+                    <Header/>
+                    <Component {...pageProps} />
+                    <Footer />
+                </div>
             </div>
-        </div>
-    </NextAuthProvider>
+        </NextAuthProvider>
+    </ApolloProvider>
 )
 
 export default MyApp;

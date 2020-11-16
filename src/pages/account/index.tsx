@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Head from "next/head";
 import Center from "../../components/layout/center";
 import {Container, Row} from "react-bootstrap";
 import {signin, useSession} from "next-auth/client";
 import DiscordLoginIcon from "../../components/icons/discordLogin";
+import {StateContext} from "../../store";
 
 
 interface AccountPageProps {
@@ -13,8 +14,8 @@ interface AccountPageProps {
 
 const AccountPage: React.FC<AccountPageProps> = ({}) => {
     const [session] = useSession();
+    const {accessToken} = useContext(StateContext)
 
-    console.log(session);
 
     if (!session) return (
         <>
@@ -34,11 +35,14 @@ const AccountPage: React.FC<AccountPageProps> = ({}) => {
             <Container>
                 <Row className="justify-content-center">
                     <h3>
-                        {session?.user.name} {session?.accessToken}
+                        {session?.user.name}
+                        <br/>
+                        {session?.accessToken}
+                        <br/>
+                        {accessToken}
                     </h3>
                 </Row>
             </Container>
-            hello
             </Center>
         </>
     )

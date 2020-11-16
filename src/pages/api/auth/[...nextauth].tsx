@@ -1,6 +1,5 @@
 import NextAuth, {InitOptions} from 'next-auth';
 import Providers from 'next-auth/providers';
-import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 const options: InitOptions = {
     providers: [
@@ -11,8 +10,6 @@ const options: InitOptions = {
             }),
     ],
 
-    // A database is optional, but required to persist accounts in a database
-    // database: `postgres://${process.env.TYPEORM_USERNAME}:${process.env.TYPEORM_PASSWORD}@${process.env.TYPEORM_HOST}:${process.env.TYPEORM_PORT}/${process.env.TYPEORM_DB}?entityPrefix=nextauth_?synchronize=true`
     database: {
         type: 'postgres',
         host: process.env.TYPEORM_HOST,

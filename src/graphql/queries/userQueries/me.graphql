@@ -1,0 +1,10 @@
+query me($token: String!){
+    me(sessionToken: $token){
+        name
+        email
+        image
+        accounts{
+            accessToken
+        }
+    }
+}
