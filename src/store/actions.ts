@@ -1,3 +1,3 @@
-export const Actions = {
-    setAccessToken : 'SET_ACCESS_TOKEN',
-};
+export enum Actions {
+  setAccessToken = 'SET_ACCESS_TOKEN'
+}

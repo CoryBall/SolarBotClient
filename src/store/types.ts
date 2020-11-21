@@ -1,5 +1,8 @@
-export interface GlobalState {
-    accessToken : string;
+export interface StateAction {
+    type: string;
+    payload?: any;
+}
 
-    setAccessToken?(accessToken : string): void;
+export interface GlobalState {
+    accessToken: string;
 }

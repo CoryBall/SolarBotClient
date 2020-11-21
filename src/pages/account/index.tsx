@@ -1,23 +1,21 @@
-import React, {useContext} from 'react';
-import Head from "next/head";
-import Center from "../../components/layout/center";
-import {Container, Row} from "react-bootstrap";
-import {signin, useSession} from "next-auth/client";
-import DiscordLoginIcon from "../../components/icons/discordLogin";
-import {StateContext} from "../../store";
-
+import React, { useContext } from 'react'
+import Head from 'next/head'
+import Center from '../../components/layout/center'
+import { Container, Row } from 'react-bootstrap'
+import { signin, useSession } from 'next-auth/client'
+import DiscordLoginIcon from '../../components/icons/discordLogin'
+import { StateContext } from '../../store'
 
 interface AccountPageProps {
 
 }
 
-
 const AccountPage: React.FC<AccountPageProps> = ({}) => {
-    const [session] = useSession();
-    const {accessToken} = useContext(StateContext)
+  const [session] = useSession()
+  const [state, dispatch] = useContext(StateContext)
 
-
-    if (!session) return (
+  if (!session) {
+    return (
         <>
             Not signed in <br/>
             <button onClick={() => signin('discord')} className="border-0 bg-light">
@@ -25,8 +23,9 @@ const AccountPage: React.FC<AccountPageProps> = ({}) => {
             </button>
         </>
     )
+  }
 
-    return (
+  return (
         <>
             <Head>
                 <title>Solar Bot / Account</title>
@@ -45,7 +44,7 @@ const AccountPage: React.FC<AccountPageProps> = ({}) => {
             </Container>
             </Center>
         </>
-    )
+  )
 }
 
-export default AccountPage;
+export default AccountPage

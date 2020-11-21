@@ -1,33 +1,27 @@
-import React, {Context, createContext, useReducer} from "react";
-import {GlobalState} from "./types";
-import {AppReducer} from "./appReducer";
-import {Actions} from "./actions";
+import React, { Context, createContext, useReducer, useCallback } from 'react'
+import { GlobalState, StateAction } from './types'
+import { AppReducer } from './appReducer'
 
 const initialState: GlobalState = {
-    accessToken: ""
+  accessToken: ''
 }
 
-export const StateContext: Context<GlobalState> = createContext(initialState);
+export const StateContext = createContext<{
+  state: GlobalState;
+  dispatch:(action: StateAction) => void;
+    }>({ state: initialState, dispatch: () => {} })
 
-export const StateProvider: React.FC = ({children}) => {
-    const [state, dispatch] = useReducer(AppReducer, initialState);
+export const StateProvider: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(AppReducer, initialState)
 
-    function setAccessToken(accessToken: string){
-        dispatch({
-            type: Actions.setAccessToken,
-            payload: accessToken,
-        });
-    }
-
-    return (
-        <StateContext.Provider
-            value={{
-                accessToken: state.accessToken,
-                setAccessToken,
-            }}
-        >
-            {children}
-        </StateContext.Provider>
-    )
+  return (
+    <StateContext.Provider
+      value={{
+        state: state,
+        dispatch: dispatch
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  )
 }
-
