@@ -1,8 +1,6 @@
-import React from "react";
-import {Col, Container, Row} from "react-bootstrap";
-import HomePage from "../components/homePage";
+import React from 'react'
 
-export default function Home() {
+export default function Home () {
   return (
       <>
       </>

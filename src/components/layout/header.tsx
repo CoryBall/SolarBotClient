@@ -1,33 +1,31 @@
 import React, { useContext } from 'react'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import {
-  getSession, signin, signout, useSession
+  signin, signout, useSession
 } from 'next-auth/client'
 import SolarBotLogo from '../icons/solarbotlogo'
 import DiscordLoginIcon from '../icons/discordLogin'
-import { StateContext, StateProvider } from '../../store'
-import { client } from '../../graphql/apollo'
-import { Actions } from '../../store/actions'
+import { useMeQuery } from '../../graphql/generatedtypes'
+import Cookies from 'js-cookie'
 
 interface HeaderProps {
 
 }
 
-function discordLogin () {
-
-}
-
-const Header: React.FC<HeaderProps> = ({}) => {
+const Header: React.FC<HeaderProps> = () => {
   const [session, isLoggedIn] = useSession()
 
-  const { state, dispatch } = useContext(StateContext)
-
-  if (session && state.accessToken === '') {
-    console.log(session)
-    console.log(session?.user)
-    console.log(session?.accessToken)
-    dispatch({ type: Actions.setAccessToken, payload: session?.accessToken })
-    console.log(state.accessToken)
+  const cookieToken = Cookies.get('authToken')
+  if (session && !cookieToken) {
+    const { data, error, loading } = useMeQuery({
+      variables: {
+        token: session?.accessToken
+      }
+    })
+    if (data?.me) {
+      Cookies.set('authToken', data?.me?.accounts[0]?.accessToken)
+      console.log('setting cookie')
+    }
   }
 
   return (
@@ -52,10 +50,12 @@ const Header: React.FC<HeaderProps> = ({}) => {
           <Nav className="align-middle ml-auto">
             <img src={session.user.image} alt="discord avatar" className="rounded-circle mx-auto" style={{ height: 60, width: 60 }} />
             <NavDropdown id="collapsible-nav-dropdown" title={session.user.name} className="ml-3 m-auto text-center">
-              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-              <NavDropdown.Item onClick={async () => await signout().then(async (_) => {
-                await client.clearStore()
-              })}
+              <NavDropdown.Item href="/guilds">Guilds</NavDropdown.Item>
+              <NavDropdown.Item onClick={async () => await signout()
+              //   .then(async (_) => {
+              //   await client.clearStore()
+              // })
+              }
               >
                 Sign Out
               </NavDropdown.Item>

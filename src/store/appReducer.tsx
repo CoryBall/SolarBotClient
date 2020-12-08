@@ -1,8 +1,7 @@
 import { Actions } from './actions'
-import { GlobalState, StateAction } from './types'
-import { Reducer } from 'react'
+import { GlobalState } from './types'
 
-export const AppReducer: Reducer<GlobalState, StateAction> = (state, action) => {
+const AppReducer = (state: GlobalState, action: {type: string; payload: any}) => {
   switch (action.type) {
     case Actions.setAccessToken:
       return {
@@ -13,3 +12,5 @@ export const AppReducer: Reducer<GlobalState, StateAction> = (state, action) => 
       return state
   }
 }
+
+export default AppReducer

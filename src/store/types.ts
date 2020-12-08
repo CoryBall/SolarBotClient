@@ -1,8 +1,4 @@
-export interface StateAction {
-    type: string;
-    payload?: any;
-}
-
 export interface GlobalState {
-    accessToken: string;
+    accessToken: string | undefined;
+    setAccessToken?(accessToken: string): void;
 }

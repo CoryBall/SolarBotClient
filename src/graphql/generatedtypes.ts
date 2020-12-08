@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client';
-import gql from 'graphql-tag';
+import * as Apollo from '@apollo/client'
+import gql from 'graphql-tag'
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -19,7 +19,6 @@ export type Query = {
   guilds?: Maybe<Array<DiscordGuild>>;
 };
 
-
 export type QueryMeArgs = {
   sessionToken: Scalars['String'];
 };
@@ -36,7 +35,6 @@ export type NextauthUser = {
   accounts: Array<NextauthAccount>;
   sessions: Array<NextauthSession>;
 };
-
 
 export type NextauthAccount = {
   __typename?: 'NextauthAccount';
@@ -76,7 +74,6 @@ export type DiscordGuild = {
 
 export type AllGuildsQueryVariables = Exact<{ [key: string]: never; }>;
 
-
 export type AllGuildsQuery = (
   { __typename?: 'Query' }
   & { guilds?: Maybe<Array<(
@@ -88,7 +85,6 @@ export type AllGuildsQuery = (
 export type MeQueryVariables = Exact<{
   token: Scalars['String'];
 }>;
-
 
 export type MeQuery = (
   { __typename?: 'Query' }
@@ -102,7 +98,6 @@ export type MeQuery = (
   )> }
 );
 
-
 export const AllGuildsDocument = gql`
     query allGuilds {
   guilds {
@@ -112,7 +107,7 @@ export const AllGuildsDocument = gql`
     owner
   }
 }
-    `;
+    `
 
 /**
  * __useAllGuildsQuery__
@@ -129,12 +124,12 @@ export const AllGuildsDocument = gql`
  *   },
  * });
  */
-export function useAllGuildsQuery(baseOptions?: Apollo.QueryHookOptions<AllGuildsQuery, AllGuildsQueryVariables>) {
-        return Apollo.useQuery<AllGuildsQuery, AllGuildsQueryVariables>(AllGuildsDocument, baseOptions);
-      }
-export function useAllGuildsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllGuildsQuery, AllGuildsQueryVariables>) {
-          return Apollo.useLazyQuery<AllGuildsQuery, AllGuildsQueryVariables>(AllGuildsDocument, baseOptions);
-        }
+export function useAllGuildsQuery (baseOptions?: Apollo.QueryHookOptions<AllGuildsQuery, AllGuildsQueryVariables>) {
+  return Apollo.useQuery<AllGuildsQuery, AllGuildsQueryVariables>(AllGuildsDocument, baseOptions)
+}
+export function useAllGuildsLazyQuery (baseOptions?: Apollo.LazyQueryHookOptions<AllGuildsQuery, AllGuildsQueryVariables>) {
+  return Apollo.useLazyQuery<AllGuildsQuery, AllGuildsQueryVariables>(AllGuildsDocument, baseOptions)
+}
 export type AllGuildsQueryHookResult = ReturnType<typeof useAllGuildsQuery>;
 export type AllGuildsLazyQueryHookResult = ReturnType<typeof useAllGuildsLazyQuery>;
 export type AllGuildsQueryResult = Apollo.QueryResult<AllGuildsQuery, AllGuildsQueryVariables>;
@@ -149,7 +144,7 @@ export const MeDocument = gql`
     }
   }
 }
-    `;
+    `
 
 /**
  * __useMeQuery__
@@ -167,12 +162,12 @@ export const MeDocument = gql`
  *   },
  * });
  */
-export function useMeQuery(baseOptions: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-      }
-export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
-        }
+export function useMeQuery (baseOptions: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+  return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions)
+}
+export function useMeLazyQuery (baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+  return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions)
+}
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
@@ -186,7 +181,7 @@ export const AllGuilds = gql`
     owner
   }
 }
-    `;
+    `
 export const Me = gql`
     query me($token: String!) {
   me(sessionToken: $token) {
@@ -198,15 +193,14 @@ export const Me = gql`
     }
   }
 }
-    `;
+    `
 
-      export interface PossibleTypesResultData {
+export interface PossibleTypesResultData {
         possibleTypes: {
           [key: string]: string[]
         }
       }
-      const result: PossibleTypesResultData = {
-  "possibleTypes": {}
-};
-      export default result;
-    
+const result: PossibleTypesResultData = {
+  possibleTypes: {}
+}
+export default result
