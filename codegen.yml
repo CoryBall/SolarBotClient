@@ -2,14 +2,14 @@ overwrite: true
 schema: "http://localhost:4000/graphql"
 documents: "src/**/*.graphql"
 generates:
-  src/graphql/generatedtypes.ts:
+  src/graphql/generatedtypes.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
-      - "typescript-document-nodes"
       - "fragment-matcher"
     config:
+      reactApolloVersion: 3
       withHooks: true
   ./graphql.schema.json:
     plugins:

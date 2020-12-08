@@ -8,29 +8,29 @@ import Footer from '../components/layout/footer'
 import { Provider as NextAuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../graphql/apollo'
-import { StateProvider } from '../store'
+import { AppProvider } from '../context'
 
 function MyApp ({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps?.initialApolloState)
 
   return (
-      <StateProvider>
           <ApolloProvider client={apolloClient}>
-              <NextAuthProvider session={pageProps.session}>
-                  <div className="bg-light vh-100 vw-100">
-                      <Head>
-                          <title>Solar Bot</title>
-                          <link rel="icon" href="/src/assets/favicon/favicon.ico"/>
-                      </Head>
-                      <div className="h-100">
-                          <Header/>
-                          <Component {...pageProps} />
-                          <Footer />
+              <AppProvider>
+                  <NextAuthProvider session={pageProps.session}>
+                      <div className="bg-light vh-100 vw-100">
+                          <Head>
+                              <title>Solar Bot</title>
+                              <link rel="icon" href="/src/assets/favicon/favicon.ico"/>
+                          </Head>
+                          <div className="h-100">
+                              <Header/>
+                              <Component {...pageProps} />
+                              <Footer />
+                          </div>
                       </div>
-                  </div>
-              </NextAuthProvider>
+                  </NextAuthProvider>
+              </AppProvider>
           </ApolloProvider>
-      </StateProvider>
   )
 }
 

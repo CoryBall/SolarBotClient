@@ -15,18 +15,21 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
   const [session, isLoggedIn] = useSession()
 
-  const cookieToken = Cookies.get('authToken')
-  if (session && !cookieToken) {
-    const { data, error, loading } = useMeQuery({
-      variables: {
-        token: session?.accessToken
+  React.useEffect(() => {
+    const cookieToken = Cookies.get('authToken')
+    if (session && !cookieToken) {
+      const { data, error, loading } = useMeQuery({
+        variables: {
+          token: session?.accessToken
+        }
+      })
+      if (data?.me) {
+        Cookies.set('authToken', data?.me?.accounts[0]?.accessToken)
+        console.log('setting cookie')
       }
-    })
-    if (data?.me) {
-      Cookies.set('authToken', data?.me?.accounts[0]?.accessToken)
-      console.log('setting cookie')
     }
   }
+  )
 
   return (
     <>
