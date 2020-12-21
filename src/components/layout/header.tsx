@@ -1,35 +1,19 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import {
   signin, signout, useSession
 } from 'next-auth/client'
 import SolarBotLogo from '../icons/solarbotlogo'
 import DiscordLoginIcon from '../icons/discordLogin'
-import { useMeQuery } from '../../graphql/generatedtypes'
-import Cookies from 'js-cookie'
+import { useMeLazyQuery } from '../../graphql/generatedtypes'
+import useApp from '../../context'
 
 interface HeaderProps {
 
 }
 
 const Header: React.FC<HeaderProps> = () => {
-  const [session, isLoggedIn] = useSession()
-
-  React.useEffect(() => {
-    const cookieToken = Cookies.get('authToken')
-    if (session && !cookieToken) {
-      const { data, error, loading } = useMeQuery({
-        variables: {
-          token: session?.accessToken
-        }
-      })
-      if (data?.me) {
-        Cookies.set('authToken', data?.me?.accounts[0]?.accessToken)
-        console.log('setting cookie')
-      }
-    }
-  }
-  )
+  const [session] = useSession()
 
   return (
     <>

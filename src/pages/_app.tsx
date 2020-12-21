@@ -5,13 +5,39 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Header from '../components/layout/header'
 import Footer from '../components/layout/footer'
-import { Provider as NextAuthProvider } from 'next-auth/client'
+import { getSession, Provider as NextAuthProvider } from 'next-auth/client'
 import { ApolloProvider } from '@apollo/client'
-import { useApollo } from '../graphql/apollo'
-import { AppProvider } from '../context'
+import useApp, { AppProvider } from '../context'
+import { useApollo } from '../utils/apollo'
 
 function MyApp ({ Component, pageProps }: AppProps) {
-  const apolloClient = useApollo(pageProps?.initialApolloState)
+  const apolloClient = useApollo(pageProps.initialApolloState)
+  const { accessToken } = useApp()
+
+  React.useEffect(() => {
+    console.log('in useEffect')
+    async function execute () {
+      const session = await getSession()
+      console.log(session?.accessToken)
+    }
+    execute()
+    // console.log('in useEffect')
+    // if (!accessToken) {
+    //   try {
+    //     getMe({
+    //       variables: {
+    //         token: session?.accessToken
+    //       }
+    //     })
+    //     if (data?.me?.accounts[0]?.accessToken) {
+    //       console.log('accessToken: ', data?.me?.accounts)
+    //       setAccessToken(data?.me?.accounts[0]?.accessToken)
+    //     }
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
+  }, [getSession, accessToken])
 
   return (
           <ApolloProvider client={apolloClient}>
@@ -32,20 +58,6 @@ function MyApp ({ Component, pageProps }: AppProps) {
               </AppProvider>
           </ApolloProvider>
   )
-}
-
-MyApp.getInitialProps = async ({ Component, ctx }: any) => {
-  let pageProps = {}
-
-  // const token = Cookies.setItem('authToken')
-
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
-
-  return {
-    pageProps
-  }
 }
 
 export default MyApp

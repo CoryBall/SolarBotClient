@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
+    "@apollo/react-ssr": "^4.0.0",
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
     "bootstrap": "^4.5.3",

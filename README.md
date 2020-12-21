@@ -1,30 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SolarBot Client
 
-## Getting Started
+## Purpose of this project
 
-First, run the development server:
+The purpose of SolarBot is to provide a connection between Discord and Final Fantasy 14's data. <br/>
+This allows discord users to connect with FFXIV's API and allow managing FC members in the discord server.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### In Progress:
++ !dateJoined "discord name" (In Progress)
+    + returns the date that user joined the FC, and how many days it has been since then
++ !fights
+    + returns a list of fights registered in the server
++ !cleared "fight name"
+    + returns a list of discord users in the server that have completed this fight
++ !needsClear "fight name"
+    + returns a list of discord users that have requested help for the specified fight
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Steps to run this project:
 
-## Learn More
++ Create a .env file with the following variables:
+  + NEXTAUTH_URL = http://localhost:3000
+  + SERVER_URL = http://localhost:4000
+  + TYPEORM_CONNECTION = postgres
+  + TYPEORM_HOST = localhost
+  + TYPEORM_USERNAME
+  + TYPEORM_PASSWORD
+  + TYPEORM_DATABASE
+  + TYPEORM_PORT
+  + DISCORD_CLIENT_ID
+  + DISCORD_SECRET
+  + DISCORD_AUTH_URL = https://discord.com/api/oauth2/authorize
+  + DISCORD_TOKEN_URL = https://discord.com/api/oauth2/token
+  + DISCORD_REVOKE_URL = https://discord.com/api/oauth2/token/revoke
+  + DISCORD_REDIRECT_URI = http://localhost:3000/api/auth/callback/discord
++ ``yarn`` to install all dependencies
++ ``yarn dev`` That's it!
 
-To learn more about Next.js, take a look at the following resources:
+### Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
++ React.js
++ Typescript
++ eslint using AirBnb config
++ Next.js
++ Next Auth
++ GraphQL CodeGen
++ Apollo Client

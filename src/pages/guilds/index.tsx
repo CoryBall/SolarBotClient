@@ -77,7 +77,7 @@ const GuildsPage: React.FC<GuildsPageProps> = ({}) => {
                     </Row>
                   </Container>
                   <Container className="justify-content-center w-75 mx-auto" style={styles.guildList}>
-                    {data?.guilds.map((guild: DiscordGuild) => (
+                    {data?.guilds?.map((guild: DiscordGuild) => (
                       guildItem(guild)
                     )
                     )}
